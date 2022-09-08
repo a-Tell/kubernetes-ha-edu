@@ -3,20 +3,20 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   labels:
-    app: rolling
-  name: rolling
+    app: recreate
+  name: recreate
   namespace: vshn-kubernetes-ha-edu
 spec:
   output:
     to:
       kind: ImageStreamTag
-      name: rolling:latest
+      name: recreate:latest
   runPolicy: Serial
   source:
     git:
       ref: main
       uri: git@github.com:a-Tell/kubernetes-ha-edu.git
-    contextDir: rollout_strategies/rolling-htdocs
+    contextDir: rollout_strategies/recreate-htdocs
     sourceSecret:
       name: deploy-test
     type: Git
@@ -43,21 +43,23 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    app: rolling
-  name: rolling
+    app: recreate
+  name: recreate
   namespace: vshn-kubernetes-ha-edu
 spec:
   replicas: 5
+  strategy:
+    type: Recreate
   selector:
-    app: rolling
+    app: recreate
   template:
     metadata:
       labels:
-        app: rolling
-      name: rolling
+        app: recreate
+      name: recreate
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/vshn-kubernetes-ha-edu/rolling
+      - image: image-registry.openshift-image-registry.svc:5000/vshn-kubernetes-ha-edu/recreate
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -101,9 +103,9 @@ spec:
       - httpd
       from:
         kind: ImageStreamTag
-        name: rolling:latest
+        name: recreate:latest
         namespace: vshn-kubernetes-ha-edu
-      lastTriggeredImage: image-registry.openshift-image-registry.svc:5000/vshn-kubernetes-ha-edu/rolling
+      lastTriggeredImage: image-registry.openshift-image-registry.svc:5000/vshn-kubernetes-ha-edu/recreate
     type: ImageChange
   - type: ConfigChange
 ---
@@ -111,8 +113,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: rolling
-  name: rolling
+    app: recreate
+  name: recreate
   namespace: vshn-kubernetes-ha-edu
 spec:
   internalTrafficPolicy: Cluster
@@ -125,7 +127,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: rolling
+    app: recreate
   sessionAffinity: None
   type: ClusterIP
 ---
@@ -133,14 +135,14 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   labels:
-    app: rolling
-  name: rolling
+    app: recreate
+  name: recreate
   namespace: vshn-kubernetes-ha-edu
 spec:
-  host: rolling-vshn-kubernetes-ha-edu.apps.cloudscale-lpg-2.appuio.cloud
+  host: recreate-vshn-kubernetes-ha-edu.apps.cloudscale-lpg-2.appuio.cloud
   to:
     kind: Service
-    name: rolling
+    name: recreate
     weight: 100
   wildcardPolicy: None
 ---
@@ -148,8 +150,8 @@ apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   labels:
-    app: rolling
-  name: rolling
+    app: recreate
+  name: recreate
   namespace: vshn-kubernetes-ha-edu
 spec:
   lookupPolicy:
