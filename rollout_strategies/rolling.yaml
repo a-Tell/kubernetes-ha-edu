@@ -60,13 +60,23 @@ spec:
       - image: image-registry.openshift-image-registry.svc:5000/vshn-kubernetes-ha-edu/rolling
         imagePullPolicy: IfNotPresent
         livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /
-            port: 8080
-            scheme: HTTP
+#          failureThreshold: 3
+#          httpGet:
+#            path: /
+#            port: 8080
+#            scheme: HTTP
+#          initialDelaySeconds: 30
+#          periodSeconds: 10
+#          successThreshold: 1
+#          timeoutSeconds: 3
+          exec:
+            command:
+            - cat
+            - /etc/httpd/tls/localhost.crt
           initialDelaySeconds: 30
-          periodSeconds: 10
+          periodSeconds: 1
+          successThreshold: 1
+          timeoutSeconds: 3
           successThreshold: 1
           timeoutSeconds: 3
         name: httpd
