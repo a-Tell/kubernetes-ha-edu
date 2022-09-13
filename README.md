@@ -34,9 +34,6 @@ oc rollout latest rolling
 watch -n 1 kubectl get pods -o wide
 ```
 
-
-```
-```
 ### Demo for `Recreate` rollout strategy
 1. Deploy the app with `Recreate` as the rollout strategy:
 ```
