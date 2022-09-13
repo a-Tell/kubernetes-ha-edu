@@ -13,7 +13,7 @@ This is the default strategy, if not otherwise specified.
  
 - `Recreate`: All Pods will be terminated and then the new ones will be created. This will of course cause downtime, until one of the new pods is ready again. This is used where old and new versions of a Pod can not run simultaneously, eg. when they use a RWX volume together and the file structure needs to be modified for the new version.
 
-### Demo
+### Demo for `RollingUpdate` rollout strategy
 1. Deploy the app with `RollingUpdate` as the rollout strategy:
 ```
 kubectl apply -f rollout_strategies/rolling.yaml
@@ -24,11 +24,15 @@ kubectl apply -f rollout_strategies/rolling.yaml
 kubectl get pods
 ```
 
+3. Trigger a rollout:
+```
+oc rollout latest rolling
+```
 
-1. asdasd
-1. asdasd
-1. asdasd
-
+4. Watch how each pod is terminated and recreated one by one:
+```
+watch -n 1 kubectl get pods -o wide
+```
 
 
 For app with `Recreate` rollout strategy:
