@@ -35,9 +35,27 @@ watch -n 1 kubectl get pods -o wide
 ```
 
 
-For app with `Recreate` rollout strategy:
+```
+```
+### Demo for `Recreate` rollout strategy
+1. Deploy the app with `Recreate` as the rollout strategy:
 ```
 kubectl apply -f rollout_strategies/recreate.yaml
+```
+
+2. Wait for ~2 minutes and check if all pods are ready:
+```
+kubectl get pods
+```
+
+3. Trigger a rollout:
+```
+oc rollout latest recreate
+```
+
+4. Watch how every pod is terminated and recreated at the same time:
+```
+watch -n 1 kubectl get pods -o wide
 ```
 
 ## Probes
