@@ -25,7 +25,7 @@ oc exec <<POD-NAME>> -- rm -f /etc/httpd/tls/localhost.crt
 
 Check Pods again, the affected Pod has restarted:
 ```
-oc exec rolling-1-jhdhg -ti -- rm -f /etc/httpd/tls/localhost.crt
+oc get pods
 ```
 
 ## Cleanup Apps
