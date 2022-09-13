@@ -4,7 +4,11 @@
 
 ## Cleanup Apps
 Cleanup all resources of the *recreate*-app:
-```oc delete all -l app=recreate```
+```
+oc delete all -l app=recreate
+```
 
 Cleanup all resources of the *rolling*-app:
-```oc delete all -l app=rolling```
+```
+oc delete all -l app=rolling
+```
