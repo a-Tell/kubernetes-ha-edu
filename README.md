@@ -44,12 +44,10 @@ So this checks for the existance of the file `/etc/httpd/tls/localhost.crt` each
 ```
 kubectl get pods
 ```
-
 1. Delete the file, which the `LivenessProbe` continuously queries, in a running pod:
 ```
 kubectl exec <<POD-NAME>> -- rm -f /etc/httpd/tls/localhost.crt
 ```
-
 1. Check Pods again, the affected Pod has restarted (see the `RESTARTS` Column):
 ```
 kubectl get pods
