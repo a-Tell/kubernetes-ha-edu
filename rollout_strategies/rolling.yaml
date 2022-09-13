@@ -16,7 +16,7 @@ spec:
     git:
       ref: main
       uri: git@github.com:a-Tell/kubernetes-ha-edu.git
-    contextDir: rollout_strategies/rolling-htdocs
+    contextDir: rollout_strategies/htdocs/rolling
     sourceSecret:
       name: deploy-test
     type: Git
