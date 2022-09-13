@@ -31,7 +31,7 @@ oc get pods
 ## Pod Anti-Affinity
 You can use affinity or anti-affinity rules to distribute pods among nodes. More Information in the Kubernetes Documentation: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 
-The `DeploymentConfig` declared in [`rollout_strategies/rolling.yaml`](rollout_strategies/rolling.yaml`) has such an anti-affinity rule, to start each pod on a seperate node:
+The `DeploymentConfig` declared in [`rollout_strategies/rolling.yaml`](rollout_strategies/rolling.yaml) has such an anti-affinity rule, to start each pod on a seperate node:
 ```
     spec:
       affinity:
