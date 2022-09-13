@@ -56,6 +56,16 @@ spec:
         app: rolling
       name: rolling
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - rolling
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - image: image-registry.openshift-image-registry.svc:5000/vshn-kubernetes-ha-edu/rolling
         imagePullPolicy: IfNotPresent
