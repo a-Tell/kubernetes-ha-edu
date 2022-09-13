@@ -1,11 +1,35 @@
 # kubernetes-ha-edu
 
 
-## Deploy Apps
-For app with `RollingUpdate` rollout strategy:
+## Rollout Strategies
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+
+In a deployment, the `strategy` determines how new Pods are rolled out, most commonly for example when there is a new version of their image.
+
+The most common two strategies are:
+- `RollingUpdate`: New Pods are created, and when ready, the old ones are terminated. This is suitable for stateless pods, where old and new versions can run simultaneously. 
+
+This is the default strategy, if not otherwise specified.
+ 
+- `Recreate`: All Pods will be terminated and then the new ones will be created. This will of course cause downtime, until one of the new pods is ready again. This is used where old and new versions of a Pod can not run simultaneously, eg. when they use a RWX volume together and the file structure needs to be modified for the new version.
+
+### Demo
+1. Deploy the app with `RollingUpdate` as the rollout strategy:
 ```
 kubectl apply -f rollout_strategies/rolling.yaml
 ```
+
+2. Wait for ~2 minutes and check if all pods are ready:
+```
+kubectl get pods
+```
+
+
+1. asdasd
+1. asdasd
+1. asdasd
+
+
 
 For app with `Recreate` rollout strategy:
 ```
