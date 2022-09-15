@@ -1,6 +1,4 @@
-# kubernetes-ha-edu
-
-
+# Kubernetes HA Education
 ## Rollout Strategies
 https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
 
@@ -123,6 +121,18 @@ Check the running pods and the nodes they are running on, on how many times each
 kubectl get pods -l app=rolling -o wide | tail -n +2 | awk '{ print $7 }' | uniq -c
 ```
 
+## Pod Disruption Budget (PDB)
+https://kubernetes.io/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets
+
+You can set PDBs to protect Pods, eg. from a Deployment, by limiting how many of them can be unavailable at the same time.
+
+For example if you have a DB or queuing application consisting of 3 pods, where only 1 pod can be down at a time. This way, during maintenance, taking too many pods down simultaniously can be prevented.
+
+---------
+TODO: rolling PDB verlinken, testen
+
+
+
 ## Cleanup Apps
 Cleanup all resources of the *recreate*-app:
 ```
@@ -133,3 +143,5 @@ Cleanup all resources of the *rolling*-app:
 ```
 kubectl delete all -l app=rolling
 ```
+
+

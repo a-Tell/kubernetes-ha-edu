@@ -174,3 +174,14 @@ metadata:
 spec:
   lookupPolicy:
     local: false
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: rolling-pdb
+  namespace: vshn-kubernetes-ha-edu
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: rolling
