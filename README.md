@@ -128,10 +128,21 @@ You can set PDBs to protect Pods, eg. from a Deployment, by limiting how many of
 
 For example if you have a DB or queuing application consisting of 3 pods, where only 1 pod can be down at a time. This way, during maintenance, taking too many pods down simultaniously can be prevented.
 
----------
-TODO: rolling PDB verlinken, testen
+For example, there is a PDB defined in the file [`rollout_strategies/rolling.yaml`](rollout_strategies/rolling.yaml):
+```
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: rolling-pdb
+  namespace: vshn-kubernetes-ha-edu
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: rolling
+```
 
-
+Using the parameter `maxUnavailable`, it will limit downed pods to only one at a time.
 
 ## Cleanup Apps
 Cleanup all resources of the *recreate*-app:
